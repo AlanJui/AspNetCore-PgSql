@@ -9,8 +9,12 @@ namespace pgSQL.Models
         public virtual DbSet<Blog> Blog { get; set; }
         public virtual DbSet<Movies> Movies { get; set; }
         public virtual DbSet<Post> Post { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
+        public BloggingContext(DbContextOptions<BloggingContext> options)
+            : base(options)
+        { } 
+        
         // Unable to generate entity type for table 'public.promotions'. Please see the warning messages.
 
         // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -85,7 +89,7 @@ namespace pgSQL.Models
                     .HasConstraintName("post_blogid_fkey");
             });
 
-            modelBuilder.Entity<Users>(entity =>
+            modelBuilder.Entity<User>(entity =>
             {
                 entity.ToTable("users");
 

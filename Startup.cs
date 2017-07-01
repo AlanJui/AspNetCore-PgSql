@@ -8,6 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
+using Microsoft.EntityFrameworkCore;
+using pgSQL.Models;
+
 namespace pgSQL
 {
     public class Startup
@@ -29,6 +32,9 @@ namespace pgSQL
         {
             // Add framework services.
             services.AddMvc();
+
+            services.AddDbContext<BloggingContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
