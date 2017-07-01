@@ -7,9 +7,9 @@ namespace pgSQL.Controllers
 {
   [Route("/api/[controller]")]
   public class BlogController : Controller {
-    private readonly BloggingContext _context;
+    private readonly AppDbContext _context;
 
-    public BlogController(BloggingContext context)
+    public BlogController(AppDbContext context)
     {
       _context = context;
     }

@@ -7,7 +7,7 @@ using pgSQL.Models;
 
 namespace pgSQL.Migrations
 {
-    [DbContext(typeof(BloggingContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20170701031046_InitialMigration")]
     partial class InitialMigration
     {

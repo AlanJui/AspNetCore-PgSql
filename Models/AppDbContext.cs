@@ -4,14 +4,15 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace pgSQL.Models
 {
-    public partial class BloggingContext : DbContext
+    public partial class AppDbContext : DbContext
     {
+        public virtual DbSet<TodoItem> TodoItems { get; set; }
         public virtual DbSet<Blog> Blog { get; set; }
         public virtual DbSet<Movies> Movies { get; set; }
         public virtual DbSet<Post> Post { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
-        public BloggingContext(DbContextOptions<BloggingContext> options)
+        public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         { } 
         

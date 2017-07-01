@@ -7,7 +7,7 @@ using pgSQL.Models;
 
 namespace pgSQL.Migrations
 {
-    [DbContext(typeof(BloggingContext))]
+    [DbContext(typeof(AppDbContext))]
     partial class BloggingContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

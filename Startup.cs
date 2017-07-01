@@ -33,7 +33,7 @@ namespace pgSQL
             // Add framework services.
             services.AddMvc();
 
-            services.AddDbContext<BloggingContext>(options =>
+            services.AddDbContext<AppDbContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
         }
 
