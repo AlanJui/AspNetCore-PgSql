@@ -33,8 +33,14 @@ namespace pgSQL
             // Add framework services.
             services.AddMvc();
 
+            // var connectionString = Configuration["ConnectionStrings:DefaultConnection"];
+
+            //Get Database Connection 
+            var dbConfig = new DbConfig(Environment.GetEnvironmentVariable("DATABASE_URL"));
+            var connectionString = dbConfig.GetConnectionString();
+            Console.Write($"connectionString = {connectionString}\n");
             services.AddDbContext<AppDbContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(connectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,6 +67,9 @@ namespace pgSQL
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            DBInitialize.EnsureCreated(app.ApplicationServices);
+            SeedData.Initialize(app.ApplicationServices);
         }
     }
 }

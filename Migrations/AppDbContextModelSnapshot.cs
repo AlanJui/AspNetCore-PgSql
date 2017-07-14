@@ -8,7 +8,7 @@ using pgSQL.Models;
 namespace pgSQL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class BloggingContextModelSnapshot : ModelSnapshot
+    partial class AppDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -19,72 +19,61 @@ namespace pgSQL.Migrations
             modelBuilder.Entity("pgSQL.Models.Blog", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id");
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnName("url")
-                        .HasColumnType("varchar")
-                        .HasMaxLength(100);
+                    b.Property<string>("Url");
 
                     b.HasKey("Id");
 
-                    b.ToTable("blog");
+                    b.ToTable("Blog");
                 });
 
             modelBuilder.Entity("pgSQL.Models.Movies", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnName("id");
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("Duration")
-                        .HasColumnName("duration");
+                    b.Property<int?>("Duration");
 
-                    b.Property<string>("Genre")
-                        .HasColumnName("genre")
-                        .HasColumnType("varchar")
-                        .HasMaxLength(100);
+                    b.Property<string>("Genre");
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnName("title")
-                        .HasColumnType("varchar")
-                        .HasMaxLength(20);
+                    b.Property<string>("Title");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Title")
-                        .IsUnique()
-                        .HasName("movies_title_key");
-
-                    b.ToTable("movies");
+                    b.ToTable("Movies");
                 });
 
             modelBuilder.Entity("pgSQL.Models.Post", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id");
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Blogid")
-                        .HasColumnName("blogid");
+                    b.Property<int>("Blogid");
 
-                    b.Property<string>("Content")
-                        .HasColumnName("content")
-                        .HasColumnType("varchar")
-                        .HasMaxLength(500);
+                    b.Property<string>("Content");
 
-                    b.Property<string>("Title")
-                        .HasColumnName("title")
-                        .HasColumnType("varchar")
-                        .HasMaxLength(100);
+                    b.Property<string>("Title");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Blogid");
 
-                    b.ToTable("post");
+                    b.ToTable("Post");
+                });
+
+            modelBuilder.Entity("pgSQL.Models.TodoItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("IsComplete");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TodoItems");
                 });
 
             modelBuilder.Entity("pgSQL.Models.User", b =>
@@ -94,24 +83,19 @@ namespace pgSQL.Migrations
                         .HasColumnName("ID");
 
                     b.Property<DateTime?>("Birthday")
-                        .HasColumnName("birthday")
-                        .HasColumnType("date");
+                        .HasColumnName("birthday");
 
                     b.Property<string>("BlogSiteUrl")
-                        .HasColumnName("blog_site_url")
-                        .HasColumnType("varchar")
-                        .HasMaxLength(100);
+                        .HasColumnName("blog_site_url");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnName("first_name")
-                        .HasColumnType("varchar")
                         .HasMaxLength(50);
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnName("last_name")
-                        .HasColumnType("varchar")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
@@ -124,7 +108,7 @@ namespace pgSQL.Migrations
                     b.HasOne("pgSQL.Models.Blog", "Blog")
                         .WithMany("Post")
                         .HasForeignKey("Blogid")
-                        .HasConstraintName("post_blogid_fkey");
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
         }
     }

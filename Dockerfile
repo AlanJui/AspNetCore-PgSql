@@ -1,0 +1,10 @@
+FROM microsoft/aspnetcore:1.1.2
+
+WORKDIR /app
+COPY ./out .
+
+ENV PORT=80
+# ENV ASPNETCORE_URLS=http://*:$PORT
+# ENV ASPNETCORE_ENVIRONMENT=Production
+CMD ASPNETCORE_ENVIRONMENT=Production ASPNETCORE_URLS=http://*:$PORT dotnet pgSQL.dll
+
