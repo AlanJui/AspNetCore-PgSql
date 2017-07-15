@@ -42,6 +42,7 @@ namespace pgSQL.Models
                         Birthday = DateTime.Parse("2003-6-4")  
                     }
                 );
+                context.SaveChanges();
             }
         }
     }

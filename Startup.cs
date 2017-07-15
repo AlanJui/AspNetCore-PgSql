@@ -33,11 +33,15 @@ namespace pgSQL
             // Add framework services.
             services.AddMvc();
 
-            // var connectionString = Configuration["ConnectionStrings:DefaultConnection"];
+            // Add SQL DB Service
+            var connectionString = Configuration["ConnectionStrings:DefaultConnection"];
+            
+            if (connectionString == "") {
+                //Get $DATABASE_URL (Database Connection) 
+                var dbConfig = new DbConfig(Environment.GetEnvironmentVariable("DATABASE_URL"));
+                connectionString = dbConfig.GetConnectionString();
+            }
 
-            //Get Database Connection 
-            var dbConfig = new DbConfig(Environment.GetEnvironmentVariable("DATABASE_URL"));
-            var connectionString = dbConfig.GetConnectionString();
             Console.Write($"connectionString = {connectionString}\n");
             services.AddDbContext<AppDbContext>(options =>
                 options.UseNpgsql(connectionString));
@@ -69,7 +73,11 @@ namespace pgSQL
             });
 
             DBInitialize.EnsureCreated(app.ApplicationServices);
-            SeedData.Initialize(app.ApplicationServices);
+            
+            if (env.IsDevelopment())
+            {
+                SeedData.Initialize(app.ApplicationServices);
+            }
         }
     }
 }

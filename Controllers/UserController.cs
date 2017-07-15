@@ -13,36 +13,6 @@ namespace pgSQL.Controllers
     public UserController(AppDbContext context)
     {
       _context = context;
-
-      if (_context.Users.Count() == 0)
-      {
-        _context.Users.AddRange(
-            new User
-            {
-                FirstName = "Alan",
-                LastName = "Jui",
-                BlogSiteUrl = "https://www.facebook.com/AlanJui",
-                Birthday = DateTime.Parse("1960-9-25")  
-            },
-
-            new User
-            {
-                FirstName = "Stacy",
-                LastName = "Wu",
-                BlogSiteUrl = null,
-                Birthday = DateTime.Parse("1967-8-18")  
-            },
-
-            new User
-            {
-                FirstName = "Amos",
-                LastName = "Jui",
-                BlogSiteUrl = "https://www.facebook.com/AmosJui",
-                Birthday = DateTime.Parse("2003-6-4")  
-            }
-        );
-        _context.SaveChanges();
-      }
     }
 
     [HttpGet]
